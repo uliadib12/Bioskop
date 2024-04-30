@@ -1,13 +1,22 @@
+require('dotenv').config();
+
 // memanggil library mysql
-const mysql = require('mysql');
+const pg = require('pg');
+const { Client } = require('pg');
 
-// membuat koneksi ke database
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'database_bioskop'
-});
+async function initDB() {
+    const client = new Client({
+        connectionString: process.env.POSTGRES_URL,
+        ssl: {
+            rejectUnauthorized: false
+        }
+    });
 
-// export module db
-module.exports = db;
+    await client.connect();
+    return client;
+}
+
+module.exports = async function () {
+    const client = await initDB();
+    return client;
+};
