@@ -1,8 +1,5 @@
 {
     "vercel": 2,
-    "env": {
-        "PORT": 3002
-    },
     "builds": [
         {
             "src": "index.js",
